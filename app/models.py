@@ -2,21 +2,29 @@
 from datetime import datetime
 from app import db
 
-class User(db.Model):
+class Book(db.Model):
    id = db.Column(db.Integer, primary_key=True)
-   username = db.Column(db.String(100), index=True, unique=True)
-   email = db.Column(db.String(200), index=True, unique=True)
-   password_hash = db.Column(db.String(128))
-   posts = db.relationship("Post", backref="author", lazy="dynamic")
+   title = db.Column(db.String(100), index=True, unique=True)
+   authors = db.relationship("Author", backref="author", lazy="dynamic")
 
    def __str__(self):
-       return f"<User {self.username}>"
+       return f"<Book {self.title}>"
 
-class Post(db.Model):
+class Author(db.Model):
    id = db.Column(db.Integer, primary_key=True)
-   body = db.Column(db.Text)
-   created = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+   first_name = db.Column(db.Text)
+   second_name = db.Column(db.Text)
+   birth_date = db.Column(db.Text)
+   book_id = db.Column(db.Integer, db.ForeignKey('book.id'))
 
    def __str__(self):
-       return f"<Post {self.id} {self.body[:50]} ...>"
+       return f"<Author {self.id} {self.first_name[:50]} {self.second_name[:50]} ...>"
+
+class Shelf(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   is_borrowed = db.Column(db.Boolean, unique=False, default=True)
+   book_id = db.Column(db.Integer, db.ForeignKey('book.id'))
+   books = db.relationship("Book", backref="shelf")
+   
+   def __str__(self):
+       return f"<Book_status {self.id} {self.is_borrowed[:50]}  {self.book_id[:50]}...>"
