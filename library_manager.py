@@ -4,8 +4,8 @@ from app.routes import book
 from app.models import Author, Book, Shelf
 
 def addbook(book):
-    addbook = book.add_book(title=book)
-    return addbook
+    book.add_book(title=book)
+   
 
 addbook("Book1")
 
