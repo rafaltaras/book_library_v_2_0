@@ -1,5 +1,3 @@
-# mikroblog.py
-
 from app import app, db
 from app.models import Author, Book, Shelf
 
@@ -13,3 +11,4 @@ def make_shell_context():
        "Book_status": Shelf
 
    }
+
