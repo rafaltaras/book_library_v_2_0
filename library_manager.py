@@ -3,10 +3,10 @@ from app import app, db
 from app.routes import book
 from app.models import Author, Book, Shelf
 
-def addbook(book):
-    book.add_book(title=book)
+app = Flask(__name__)
+
+@app.route("/")
+def add_book():
+    book.add_book()
    
-
-addbook("Book1")
-
 
