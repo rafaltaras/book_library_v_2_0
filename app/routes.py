@@ -27,8 +27,7 @@ def add_book():
     }   
     title = book.get("title")  
     library.add_book(title)
-    books = library.get_library()
-    return [book_to_dict(book) for book in books]
+    return get_books()
 
 @app.route("/api/v1/add_author/", methods=["POST"])
 def add_author():
@@ -42,7 +41,7 @@ def add_author():
     second_name = author.get("second_name")
     birth_date = author.get("birth_date")
     library.add_author(first_name, second_name, birth_date)
-    return "Author added to DB"
+    return get_authors()
 
 @app.route("/api/v1/shelf/", methods=["POST"])
 def is_borrowed():
@@ -54,7 +53,7 @@ def is_borrowed():
     is_borrowed = isborrowed.get("is_borrowed")
     book_id = isborrowed.get("book_id")
     library.is_borrowed(is_borrowed,book_id)
-    return "Is borrowed ?"
+    return borrowed()
 
 @app.route("/api/v1/delete/<int:id>", methods=["DELETE"])
 def delete(id):
