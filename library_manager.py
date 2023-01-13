@@ -1,17 +1,25 @@
 from app import app, db
 from app.models import Author, Book, Shelf
-import json
+from flask import  json 
 
 class Library:
     def get_library(self):
-        get_books = Book.query.all()
+        get_books = Book.query.all() 
         return get_books
+
+    def get_authors(self):
+        get_authors = Author.query.all() 
+        return get_authors
+
+    def borrowed(self):
+        is_borrowed = Shelf.query.all() 
+        return is_borrowed
 
     def add_book(self, title):
         book = Book(title=title)
         db.session.add(book)
         db.session.commit()
-        return "ok"
+        return "OK"
 
     def add_author(self, first_name, second_name, birth_date):
         author = Author(first_name=first_name, second_name=second_name, birth_date=birth_date )
@@ -24,10 +32,13 @@ class Library:
         db.session.add(shelf)
         db.session.commit()
         return "ok"
-
-    def save_library(self):
-        with open("library.json", "w") as f:
-            json.dump(self.library, f)
-
+    
+    def delete(self, id):
+        get = Book.query.all()
+        book_id = id - 1
+        book_to_delete = get[book_id]
+        print(book_to_delete)
+        db.session.delete(book_to_delete)
+        db.session.commit()
 
 library = Library()

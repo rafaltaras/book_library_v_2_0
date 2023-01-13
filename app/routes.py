@@ -1,11 +1,23 @@
 from app import app
 from library_manager import library
 from flask import request
+from flask import jsonify, json 
+from serializers import book_to_dict, author_to_dict, is_borrowed_to_dict
 
 @app.route("/api/v1/get/books", methods=["GET"])
-def get():
-    library.get_library()
-    return "Should be json"
+def get_books():
+    books = library.get_library()
+    return [book_to_dict(book) for book in books]
+
+@app.route("/api/v1/get/authors", methods=["GET"])
+def get_authors():
+    authors = library.get_authors()
+    return [author_to_dict(author) for author in authors]
+
+@app.route("/api/v1/get/is_borrowed", methods=["GET"])
+def borrowed():
+    borrowed = library.borrowed()
+    return [is_borrowed_to_dict(borrow) for borrow in borrowed]
 
 @app.route("/api/v1/book/", methods=["POST"])
 def add_book():
@@ -15,8 +27,7 @@ def add_book():
     }   
     title = book.get("title")  
     library.add_book(title)
-    return "Book added"
-
+    return jsonify(title)
 
 @app.route("/api/v1/author/", methods=["POST"])
 def add_author():
@@ -43,3 +54,8 @@ def is_borrowed():
     book_id = isborrowed.get("book_id")
     library.is_borrowed(is_borrowed,book_id)
     return "Is borrowed ?"
+
+@app.route("/api/v1/delete/<int:id>", methods=["DELETE"])
+def delete(id):
+    library.delete(id)
+    return "Book deleted"
