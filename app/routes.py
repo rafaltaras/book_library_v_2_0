@@ -19,7 +19,7 @@ def borrowed():
     borrowed = library.borrowed()
     return [is_borrowed_to_dict(borrow) for borrow in borrowed]
 
-@app.route("/api/v1/book/", methods=["POST"])
+@app.route("/api/v1/add_book/", methods=["POST"])
 def add_book():
     data = request.json
     book = {
@@ -27,9 +27,10 @@ def add_book():
     }   
     title = book.get("title")  
     library.add_book(title)
-    return jsonify(title)
+    books = library.get_library()
+    return [book_to_dict(book) for book in books]
 
-@app.route("/api/v1/author/", methods=["POST"])
+@app.route("/api/v1/add_author/", methods=["POST"])
 def add_author():
     data = request.json
     author = {

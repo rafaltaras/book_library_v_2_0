@@ -34,11 +34,11 @@ class Library:
         return "ok"
     
     def delete(self, id):
-        get = Book.query.all()
-        book_id = id - 1
-        book_to_delete = get[book_id]
-        print(book_to_delete)
-        db.session.delete(book_to_delete)
+        get = Book.query.get(id)
+        # book_id = id - 1
+        # book_to_delete = get[id]
+        print(get)
+        db.session.delete(get)
         db.session.commit()
 
 library = Library()
