@@ -1,7 +1,4 @@
-# app/models.py
-from datetime import datetime
 from app import db
-from flask import json 
 
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,7 +14,6 @@ class Book(db.Model):
             "title": self.title
         }
        
-
 class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.Text)
