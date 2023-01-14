@@ -14,7 +14,7 @@ def author_to_dict(author):
         "birth_date": author.birth_date
     }
 
-def is_borrowed_to_dict(borrowed):
+def shelf_to_dict(borrowed):
     return {
         "id": borrowed.id,
         "is_borrowed": borrowed.is_borrowed,

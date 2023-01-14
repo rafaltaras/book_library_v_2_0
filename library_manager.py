@@ -3,17 +3,14 @@ from app.models import Author, Book, Shelf
 from flask import  json 
 
 class Library:
-    def get_library(self):
-        get_books = Book.query.all() 
-        return get_books
+    def get_books(self):
+        return Book.query.all()
 
     def get_authors(self):
-        get_authors = Author.query.all() 
-        return get_authors
+        return Author.query.all() 
 
-    def borrowed(self):
-        is_borrowed = Shelf.query.all() 
-        return is_borrowed
+    def get_shelf(self):
+        return Shelf.query.all() 
 
     def add_book(self, title):
         book = Book(title=title)
