@@ -55,11 +55,11 @@ class Library:
         db.session.delete(get)
         db.session.commit()
 
-    def get_book_id(self, id):
+    def get_book_by_id(self, id):
         get_book_id = Book.query.get(id)
         return get_book_id
     
-    def get_author_id(self, id):
+    def get_author_by_id(self, id):
         get_author_id = Author.query.get(id)
         return get_author_id
 

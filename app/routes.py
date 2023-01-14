@@ -51,7 +51,7 @@ def update_author():
 
 @app.route("/api/v1/delete/book/<int:id>", methods=["DELETE"])
 def delete_book(id):
-    book_id = library.get_book_id(id)
+    book_id = library.get_book_by_id(id)
     if not book_id:
         abort(404)
     else:
@@ -60,7 +60,7 @@ def delete_book(id):
 
 @app.route("/api/v1/delete/author/<int:id>", methods=["DELETE"])
 def delete_author(id):
-    author_id = library.get_author_id(id)
+    author_id = library.get_author_by_id(id)
     if not author_id:
         abort(404)
     else:
